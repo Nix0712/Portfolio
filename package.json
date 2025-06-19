@@ -1,0 +1,40 @@
+{
+  "name": "nixlab_portfolio",
+  "packageManager": "yarn@4.9.2",
+  "version": "1.0.0",
+  "workspaces": [
+    "apps/*"
+  ],
+  "scripts": {
+    "prod-folio": "yarn workspace @nixlab/prod-folio start",
+    "prod-folio:build": "yarn workspace @nixlab/prod-folio build"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.27.2",
+    "@babel/core": "^7.27.4",
+    "@babel/preset-env": "^7.27.2",
+    "@babel/preset-react": "^7.27.1",
+    "@types/babel__core": "^7.20.5",
+    "@types/supports-color": "^10.0.0",
+    "@types/webpack": "^5.28.5",
+    "babel-loader": "^10.0.0",
+    "eslint": "^9.29.0",
+    "html-webpack-plugin": "^5.6.3",
+    "prettier": "3.5.3",
+    "ts-loader": "^9.5.2",
+    "typescript": "^5.8.3",
+    "webpack": "^5.99.9",
+    "webpack-cli": "^6.0.1",
+    "webpack-dev-server": "^5.2.2",
+    "webpack-merge": "^6.0.1"
+  },
+  "dependencies": {
+    "@types/react": "^19.1.8",
+    "@types/react-dom": "^19.1.6",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0"
+  },
+  "peerDependencies": {
+    "typescript": "*"
+  }
+}
