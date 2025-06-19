@@ -1,2 +1,4 @@
 # Portfolio
-Simple website portfolio
+Portfolio made by Nikola Jokovic
+
+@nixlab
