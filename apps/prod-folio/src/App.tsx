@@ -1,11 +1,32 @@
 
+import { createTheme, CssBaseline, ThemeProvider } from "@mui/material";
 import React from "react";
+import { MainPage } from "./Pages";
+
+const darkTheme = createTheme({
+    palette: {
+        mode: 'dark',
+    },
+});
+
+const lightTheme = createTheme({
+    palette: {
+        mode: 'light',
+    }
+});
 
 const App: React.FC = () => {
+    const [theme, setTheme] = React.useState<boolean>(true);
+
+    const changeTheme = () => {
+        setTheme(!theme)
+    }
+
     return (
-        <h1>
-            Initial Base of the project
-        </h1>
+        <ThemeProvider theme={theme ? darkTheme : lightTheme} >
+            <CssBaseline />
+            <MainPage changeTheme={changeTheme} />
+        </ThemeProvider >
     );
 }
 

@@ -1,0 +1,1 @@
+export { useMenuStyles } from './common.hooks.style';
