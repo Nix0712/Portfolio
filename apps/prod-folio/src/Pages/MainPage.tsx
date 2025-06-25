@@ -32,7 +32,7 @@ export const MainPage: React.FC<MainPageProps> = ({ changeTheme }) => {
                     </Box>
                     <Box sx={{ flexGrow: 1 }}>
                         <Typography variant="h5" component="div" sx={{ color: 'inherit', fontWeight: 'thin' }}>
-                            Nix Lab
+                            Nix Lab test pls work
                         </Typography>
                     </Box>
                     <Box sx={{ display: 'flex', gap: 2 }}>
