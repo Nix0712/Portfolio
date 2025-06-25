@@ -13,28 +13,6 @@ pipeline {
     }
 
     stages {
-        stage("Docker login and cache") {
-            when {
-                branch 'main'
-            }
-            steps {
-                withCredentials([usernamePassword(
-                    credentialsId: DOCKERHUB_CREDS,
-                    usernameVariable: 'DOCKER_USER',
-                    passwordVariable: 'DOCKER_PASS'
-                )]) {
-                    script {
-                        echo "Logging in to Docker Hub..."
-                        sh 'echo $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin'
-
-                        echo "Pulling cached images (if exist)..."
-                        sh "docker pull ${IMAGE_TAG} || true"
-                        sh "docker pull ${LATEST_TAG} || true"
-                    }
-                }
-            }
-        }
-
         stage("Build docker image") {
             when {
                 branch 'main'
@@ -43,12 +21,7 @@ pipeline {
                 script {
                     echo "Building Docker image with cache..."
                     sh '''
-                        export DOCKER_BUILDKIT=1
-                        docker build \
-                            --cache-from=${IMAGE_TAG} \
-                            --cache-from=${LATEST_TAG} \
-                            --build-arg BUILDKIT_INLINE_CACHE=1 \
-                            -t ${IMAGE_TAG} -t ${LATEST_TAG} .
+                        export DOCKER_BUILDKIT=1 docker build -t ${IMAGE_TAG} -t ${LATEST_TAG} . --no-cache
                     '''
                 }
             }

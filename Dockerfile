@@ -9,7 +9,7 @@ RUN corepack enable
 # Install dependencies (ensure your yarn.lock is up-to-date before building!)
 RUN yarn install 
 RUN yarn run prod-folio:build
-
+RUN echo "nesto"
 
 # Production stage: use a minimal Node.js image with http-server to serve static files
 FROM nginx:alpine AS production
