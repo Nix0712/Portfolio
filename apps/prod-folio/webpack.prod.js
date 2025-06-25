@@ -1,25 +1,23 @@
 const { merge } = require('webpack-merge');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 const common = require('../../config/webpack.common');
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = merge(common, {
-    entry: './src/index.tsx', // App-specific entry point
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'index_bundle.js', // App-specific output file
+        filename: 'index_bundle.js',
     },
     plugins: [
         new HtmlWebpackPlugin({
             template: path.join(__dirname, 'public', 'index.html')
         })
     ],
-    devServer: {
-        port: '5000',
-        static: {
-            directory: path.join(__dirname, 'public')
-        }
-    },
-
-
+    entry: './src/index.tsx',
+    mode: 'production',
+    performance: {
+        hints: false,
+        maxEntrypointSize: 512000,
+        maxAssetSize: 512000
+    }
 });
