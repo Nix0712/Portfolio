@@ -1,35 +1,27 @@
 # Build stage: use Node and Yarn (via Corepack) to install dependencies and build the app
-FROM node:alpine AS builder
+FROM node:24-alpine AS builder
 
 WORKDIR /app
-
 # Enable Corepack and activate Yarn 4.9.2
-RUN corepack enable && corepack prepare yarn@4.9.2 --activate
-
 # Copy dependency manifests first for better caching
-COPY package.json yarn.lock ./
-
-# Install dependencies (ensure your yarn.lock is up-to-date before building!)
-RUN yarn install --immutable
-
-# Copy all source code and config files
 COPY . .
+RUN corepack enable 
+# Install dependencies (ensure your yarn.lock is up-to-date before building!)
+RUN yarn install 
+RUN yarn run prod-folio:build
 
-# Build your app (replace 'prod-folio' with your actual build script if different)
-RUN yarn run prod-folio
 
 # Production stage: use a minimal Node.js image with http-server to serve static files
-FROM node:alpine AS production
+FROM nginx:alpine AS production
 
-WORKDIR /app
+WORKDIR /usr/share/nginx/html
 
 # Install http-server globally using npm (Yarn 4+ no longer supports 'yarn global add')
-RUN npm install -g http-server
 
 # Copy built static files from builder stage
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/apps/prod-folio/dist/ /usr/share/nginx/html/
+COPY nginx/nginx.conf /etc/nginx/conf.d/default.conf
 
-EXPOSE 8080
+EXPOSE 80
 
-# Serve the static site from the dist directory
-CMD ["http-server", "dist", "-p", "8080"]
+ENTRYPOINT ["nginx", "-g", "daemon off;"]
