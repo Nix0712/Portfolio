@@ -66,23 +66,5 @@ pipeline {
                 }
             }
         }
-
-        stage("Restart service on server") {
-            when {
-                branch 'main'
-            }
-            steps {
-                script {
-                    sshagent(credentials: ['298db7ee-313b-4adb-86b6-ea1d2eede45f']) {
-                        echo "Restarting Docker Compose service on remote server..."
-                        sh '''
-                            ssh -o StrictHostKeyChecking=no milan@slobodausisivac.rocks '
-                                cd nikola && docker compose pull && docker compose restart
-                            '
-                        '''
-                    }
-                }
-            }
-        }
     }
 }
