@@ -21,7 +21,7 @@ pipeline {
                 script {
                     echo "Building Docker image with cache..."
                     sh '''
-                        export DOCKER_BUILDKIT=1 docker build -t ${IMAGE_TAG} -t ${LATEST_TAG} . --no-cache
+                        docker build -t ${IMAGE_TAG} -t ${LATEST_TAG} . --no-cache
                     '''
                 }
             }
