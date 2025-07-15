@@ -1,1 +1,1 @@
-export { useMenuStyles } from './common.hooks.style';
+export { useMenuStyles, usePageStyles } from './common.hooks.style';
