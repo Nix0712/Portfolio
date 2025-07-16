@@ -25,6 +25,7 @@ pipeline {
                             echo "Building Docker image..."
                             docker build -t ${IMAGE_TAG} -t ${LATEST_TAG} . --no-cache
                         '''
+                    }
                 }
             }
         }
