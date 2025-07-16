@@ -39,7 +39,8 @@ pipeline {
                     echo "Pushing images to Docker Hub..."
                     sh "docker push ${IMAGE_TAG}"
                     sh "docker push ${LATEST_TAG}"
-                    sh "docker restart nix-portfolio"
+                    sh "docker compose -f /opt/nikola/docker-compose.yml up pull"
+                    sh "docker compose -f /opt/nikola/docker-compose.yml up -d --force-recreate"
                 }
             }
         }
