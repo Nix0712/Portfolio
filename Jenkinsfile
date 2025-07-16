@@ -19,10 +19,13 @@ pipeline {
             }
             steps {
                 script {
-                    echo "Building Docker image with cache..."
-                    sh '''
-                        docker build -t ${IMAGE_TAG} -t ${LATEST_TAG} . --no-cache
-                    '''
+                    withCredentials([usernamePassword(credentialsId: env.DOCKERHUB_CREDS, usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                        sh '''
+                            echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+                            echo "Building Docker image..."
+                            docker build -t ${IMAGE_TAG} -t ${LATEST_TAG} . --no-cache
+                        '''
+                    }
                 }
             }
         }
@@ -36,6 +39,8 @@ pipeline {
                     echo "Pushing images to Docker Hub..."
                     sh "docker push ${IMAGE_TAG}"
                     sh "docker push ${LATEST_TAG}"
+                    sh "docker compose -f /opt/nikola/docker-compose.yml pull"
+                    sh "docker compose -f /opt/nikola/docker-compose.yml up -d --force-recreate"
                 }
             }
         }
