@@ -13,7 +13,7 @@ export const MainPage: React.FC<MainPageProps> = ({ changeTheme }) => {
     return (
         <Box sx={styles.mainPageContainer}>
             <NavBar changeTheme={changeTheme} />
-            <span>Test click theme change amogus</span>
+            <span>Test click theme change </span>
             <Switch
                 onChange={() => {
                     changeTheme();
