@@ -39,6 +39,7 @@ pipeline {
                     echo "Pushing images to Docker Hub..."
                     sh "docker push ${IMAGE_TAG}"
                     sh "docker push ${LATEST_TAG}"
+                    sh "docker restart nix-portfolio"
                 }
             }
         }
