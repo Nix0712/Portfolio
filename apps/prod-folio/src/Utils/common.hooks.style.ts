@@ -32,21 +32,25 @@ const mainPageContainer = (theme: Theme) => {
 
     const mainPageContainer = {
         width: '100%',
-        height: '100dvh',
+        height: '110dvh',
         backgroundImage:
             themeMode === 'dark'
-                ? `url(/assets/static/FullViewDark.png)`
-                : `url(/assets/static/FullViewLight.png)`,
+                ? `url(/assets/static/DarkThemeBackground.jpg)`
+                : `url(/assets/static/LightThemeBackground.jpg)`,
         [theme.breakpoints.down('md')]: {
             backgroundImage:
                 themeMode === 'dark'
-                    ? `url(/assets/static/FrontPageDarkPhone.png)`
-                    : `url(/assets/static/FrontPageLightPhone.png)`,
-            backgroundPosition: 'center -100px',
+                    ? `url(/assets/static/PhoneDarkThemeBackground.jpg)`
+                    : `url(/assets/static/PhoneLightThemeBackground.jpg)`,
         },
         backgroundSize: 'cover',
         backgroundRepeat: 'no-repeat',
+        backgroundPosition: 'center 0px',
         backgroundColor: '#000100',
+        WebkitMaskImage:
+            'linear-gradient(to bottom, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)',
+        maskImage:
+            'linear-gradient(to bottom, rgba(0,0,0,1) 90%, rgba(0,0,0,0) 100%)',
     };
 
     return mainPageContainer;

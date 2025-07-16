@@ -10,21 +10,24 @@ import {
     ListItem,
     Toolbar,
     Typography,
+    useTheme,
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import React, { useState } from 'react';
 import { useMenuStyles } from '../Utils';
 
-const pages = ['Projects', 'About Me', 'CV'];
+const sections = ['Projects', 'About Me', 'CV'];
 
-type NavBarProps = {
-    changeTheme: () => void;
-};
-
-export const NavBar: React.FC<NavBarProps> = ({ changeTheme }) => {
+export const NavBar: React.FC = () => {
     // const [value, setValue] = React.useState<string>('Item One'); // Later for selected item
 
     const [isOpenNavMenu, setIsOpenNavMenu] = useState<boolean>(false);
+
+    const theme = useTheme();
+    const isDark = theme.palette.mode === 'dark';
+    const logoSrc = isDark
+        ? '/assets/static/LogoDarkTheme.png'
+        : '/assets/static/LogoLightTheme.png';
 
     const handleNavMenuChange = () => {
         setIsOpenNavMenu(!isOpenNavMenu);
@@ -49,7 +52,10 @@ export const NavBar: React.FC<NavBarProps> = ({ changeTheme }) => {
                         pl: 4,
                     }}
                 >
-                    <Avatar src="/assets/static/logoIconDark.png" />
+                    <Avatar
+                        src={logoSrc}
+                        sx={{ p: 0.7, width: 56, height: 56 }}
+                    />
                 </Box>
 
                 <ClickAwayListener onClickAway={() => setIsOpenNavMenu(false)}>
@@ -84,14 +90,14 @@ export const NavBar: React.FC<NavBarProps> = ({ changeTheme }) => {
                                 }}
                             >
                                 <List>
-                                    {pages.map((page) => (
-                                        <ListItem key={page} disablePadding>
+                                    {sections.map((section) => (
+                                        <ListItem key={section} disablePadding>
                                             <Button
                                                 disableRipple
                                                 sx={styles.navItem}
                                                 onClick={handleNavMenuChange}
                                             >
-                                                {page}
+                                                {section}
                                             </Button>
                                         </ListItem>
                                     ))}
@@ -106,9 +112,9 @@ export const NavBar: React.FC<NavBarProps> = ({ changeTheme }) => {
                         display: { xs: 'none', md: 'flex' },
                     }}
                 >
-                    {pages.map((page) => (
-                        <Button disableRipple key={page} sx={styles.navItem}>
-                            <Typography variant="h6">{page}</Typography>
+                    {sections.map((section) => (
+                        <Button disableRipple key={section} sx={styles.navItem}>
+                            <Typography variant="h6">{section}</Typography>
                         </Button>
                     ))}
                 </Box>

@@ -1,7 +1,7 @@
 import React from 'react';
-import { useMenuStyles, usePageStyles } from '../Utils';
-import { NavBar } from '../Components';
-import { Box, Switch } from '@mui/material';
+import { usePageStyles } from '../Utils';
+import { Box, Switch, Typography } from '@mui/material';
+import { AboutMeView, CVView, FirstView, ProjectsView } from '../Sections';
 
 type MainPageProps = {
     changeTheme: () => void;
@@ -11,14 +11,15 @@ export const MainPage: React.FC<MainPageProps> = ({ changeTheme }) => {
     const styles = usePageStyles();
 
     return (
-        <Box sx={styles.mainPageContainer}>
-            <NavBar changeTheme={changeTheme} />
-            <span>Test click theme change</span>
-            <Switch
-                onChange={() => {
-                    changeTheme();
-                }}
-            />
+        <Box>
+            <FirstView />
+            <Box>
+                <Switch onChange={changeTheme} />
+                <Typography variant="h6">Toggle Theme</Typography>
+            </Box>
+            <AboutMeView />
+            <ProjectsView />
+            <CVView />
         </Box>
     );
 };
